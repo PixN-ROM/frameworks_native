@@ -387,8 +387,8 @@ DispSync::DispSync(const char* name) :
     // set DispSync to SCHED_RR to minimize jitter
     struct sched_param param = {0};
     param.sched_priority = 4;
-    if (sched_setscheduler(mThread->getTid(), SCHED_RR, &param) != 0) {
-        ALOGE("Couldn't set SCHED_RR for DispSyncThread");
+    if (sched_setscheduler(mThread->getTid(), SCHED_FIFO, &param) != 0) {
+        ALOGE("Couldn't set SCHED_FIFO for DispSyncThread");
     }
 
 
