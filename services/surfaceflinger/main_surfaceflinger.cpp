@@ -16,6 +16,8 @@
 
 #include <sys/resource.h>
 
+#include <sched.h>
+
 #include <cutils/sched_policy.h>
 #include <binder/IServiceManager.h>
 #include <binder/IPCThreadState.h>
@@ -58,6 +60,12 @@ int main(int, char**) {
     // publish GpuService
     sp<GpuService> gpuservice = new GpuService();
     sm->addService(String16(GpuService::SERVICE_NAME), gpuservice, false);
+
+    struct sched_param param = {0};
+    param.sched_priority = 4;
+    if (sched_setscheduler(0, SCHED_RR, &param) != 0) {
+        ALOGE("Couldn't set SCHED_RR");
+    }
 
     // run surface flinger in this thread
     flinger->run();

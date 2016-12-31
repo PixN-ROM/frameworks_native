@@ -5,4 +5,4 @@ service surfaceflinger /system/bin/surfaceflinger
     # allow the minimum realtime scheduler priority: RLIMIT_RTPRIO(14)=1
     rlimit 14 1 1
     onrestart restart zygote
-    writepid /sys/fs/cgroup/stune/foreground/tasks
+    writepid /dev/stune/foreground/tasks
